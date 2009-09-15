@@ -1,0 +1,85 @@
+avr-evtd (1.7.5-3) unstable; urgency=low
+
+  * debian/rules:
+    + call dh_installinit with levels that match the headers of the
+      initscript.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Tue, 15 Sep 2009 03:37:20 -0300
+
+avr-evtd (1.7.5-2) unstable; urgency=low
+
+  * Sanitize the runlevels of the init script. Really Closes: #541380.
+      (Tks Petter Reinholdtsen)
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Mon, 14 Sep 2009 19:21:44 -0300
+
+avr-evtd (1.7.5-1) unstable; urgency=low
+
+  * New upstream release: fixes some brown-paper bag bugs.
+  * debian/control:
+    + updated to Standards-Version 3.8.3 (no changes required).
+  * debian/watch:
+    + remove useless comments.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Fri, 28 Aug 2009 05:51:32 -0300
+
+avr-evtd (1.7.4-1) unstable; urgency=low
+
+  * New upstream release.
+    + Fixes the runlevels of the init script. Closes: #541380.
+      (Tks Petter Reinholdtsen)
+  * debian/copyright: update my copyright.
+  * debian/control:
+    + included comment (allowed by policy).
+    + updated the long description a little.
+    + updated to Standards-Version 3.8.2 (no changes required).
+  * debian/dirs: change avr_evtd to avr-evtd.
+  * debian/rules:
+    + change avr_evtd to avr-evtd.
+    + remove some comments.
+    + ship upstream changelog.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Tue, 18 Aug 2009 16:24:08 -0300
+
+avr-evtd (1.7.3-2) unstable; urgency=low
+
+  * copyright: list that I am upstream too.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Tue, 30 Sep 2008 17:08:08 -0300
+
+avr-evtd (1.7.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * control: included DM-Upload-Allowed field, since I am a DM now.
+  * watch: modify to the way that I will use for new releases.
+  * copyright: list that I am upstream too.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Fri, 26 Sep 2008 14:05:15 -0300
+
+avr-evtd (1.7.3~svn24-1) unstable; urgency=low
+
+  * New upstream version (I'm now upstream).
+  * New configuration file which doesn't shutdown the Kuro automatically.
+  * Still keeping in the quilt things, as I may use them sometimes.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Fri, 19 Sep 2008 01:39:37 -0300
+
+avr-evtd (1.7.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #497882)
+  * avr_evtd.8: fixed the section and the date of the manpage.
+  * avr_evtd.8: used a spell-checker to fix some broken English.
+  * avr_evtd.8: capitalized the name of the program/page.
+  * avr_evtd.8: re-formatted the file for lines shorter than 80 columns.
+  * avr_evtd.c: fix verification of return of the open function.
+  * avr_evtd.c: close a file descriptor to avoid leaking open files.
+  * control: upgraded standards version to 3.8.0. No changes required.
+  * control: build depends on quilt, for patch management.
+  * debian/patches: created directory for use with quilt
+  * init.d: LBS-ize the file and cleaned it a bit.
+  * init.d: add support to force-reload.
+  * rules: use -Os instead of -O2 (Thanks Charles Plessy).
+  * copyright: use machine-parseable format (Thanks Charles Plessy).
+  * watch: create watch file for sourceforge.net.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Fri, 29 Aug 2008 09:13:18 -0300

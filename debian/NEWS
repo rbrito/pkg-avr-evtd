@@ -1,0 +1,9 @@
+avr-evtd (1.7.4-1) unstable; urgency=low
+
+  Please, note that as of version 1.7.4-1, avr-evtd has changed its
+  binary names and related directories from avr_evtd to avr-evtd.
+  In particular, the configuration from /etc/avr_evtd should be
+  read and migrated to /etc/avr-evtd if the defaults are not the
+  desired values.
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Tue, 18 Aug 2009 16:29:46 -0300
