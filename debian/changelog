@@ -1,3 +1,13 @@
+avr-evtd (1.7.6-1) unstable; urgency=low
+
+  * New upstream release:
+    + Code cleanup.
+  * Update Standards-Version to 3.8.4 (no changes).
+  * Minor cleanup of the rules file.
+  * Convert to source format "3.0 (quilt)"
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Thu, 20 May 2010 05:09:09 -0300
+
 avr-evtd (1.7.5-3) unstable; urgency=low
 
   * debian/rules:

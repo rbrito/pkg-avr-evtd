@@ -1,8 +1,6 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-#include /usr/share/quilt/quilt.make
-
 TARGETDIR=$(CURDIR)/debian/avr-evtd
 
 CFLAGS = -Wall -Wextra -g
@@ -14,34 +12,28 @@ else
 endif
 
 configure: configure-stamp
-configure-stamp: #$(QUILT_STAMPFN)
+configure-stamp:
 	dh_testdir
-
-	touch configure-stamp
-
+	touch $@
 
 build: build-stamp
 	cp -l Install/avr-evtd.init debian/avr-evtd.init
 
 build-stamp: configure-stamp
 	dh_testdir
-
 	$(CC) $(CFLAGS) -o avr-evtd avr-evtd.c
-
 	touch $@
 
-clean: #unpatch
+clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
-
 	dh_clean avr-evtd debian/avr-evtd.init
 
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k 
+	dh_clean -k
 	dh_installdirs
 
 	#$(MAKE) DESTDIR=$(CURDIR)/debian/avr-evtd install
@@ -51,18 +43,14 @@ install: build
 	install -m 644	Install/recovery.tar	$(TARGETDIR)/etc/avr-evtd/
 	install -m 644	Install/avr-evtd.config	$(TARGETDIR)/etc/default/avr-evtd
 
-# Build architecture-independent files here.
 binary-indep: build install
-# We have nothing to do by default.
 
-# Build architecture-dependent files here.
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs ChangeLog
+	dh_installchangelogs Changelog.old
 	dh_installdocs
 	dh_installexamples
-#	dh_install
 	dh_installinit -- start 12 2 3 4 5 . stop 95 0 1 6 .
 	dh_installman  Install/avr-evtd.8
 	dh_link

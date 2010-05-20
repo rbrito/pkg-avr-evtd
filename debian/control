@@ -4,7 +4,7 @@ Section: misc
 Priority: optional
 Maintainer: Rogério Brito <rbrito@ime.usp.br>
 Build-Depends: debhelper (>= 5)
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 Homepage: http://sourceforge.net/projects/ppc-evtd
 DM-Upload-Allowed: yes
 
