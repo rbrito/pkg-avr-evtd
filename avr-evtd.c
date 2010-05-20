@@ -1,25 +1,25 @@
 /*
-* Linkstation AVR daemon
-*
-* Copyright 2006 Bob Perry <lb-source@users.sf.net>
-* Copyright 2008, 2009 Rog�rio Brito <rbrito@users.sf.net>
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-* 02110-1301 USA.
-*
-*/
+ * Linkstation AVR daemon
+ *
+ * Copyright © 2006 Bob Perry <lb-source@users.sf.net>
+ * Copyright © 2008-2010 Rogério Brito <rbrito@users.sf.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -73,9 +73,9 @@ typedef struct _OFF_TIMER {
 
 /* Some global variables */
 #ifdef MIPS
-char avr_device[] = "/dev/ttyS0";
+static char avr_device[] = "/dev/ttyS0";
 #else
-char avr_device[] = "/dev/ttyS1";
+static char avr_device[] = "/dev/ttyS1";
 #endif
 
 char config_file_location[] = "/etc/default/avr-evtd";
@@ -108,8 +108,7 @@ int checkState = 1;		/* Will force an update within 15
 				 * seconds of starting up to resolve
 				 * those pushed out refresh times */
 char em_mode = 0;
-const char strVersion[] =
-    "Linkstation/Kuro AVR daemon Revision $Rev: 113 $\n";
+const char version[] = "Linkstation/Kuro AVR daemon $Rev: 145 $\n";
 char rootPartition[10] = "";	/* Default, no defaults for both root
 				 * and working partitions */
 char workingPartition[10] = "";
@@ -119,6 +118,7 @@ char resetPresses = 0;
 int diskUsed = 0;
 
 /* Declarations */
+static void usage(void);
 static int check_timer(char type);
 static void termination_handler(int signum);
 static int open_serial(char *device) __attribute__ ((always_inline));
@@ -138,30 +138,39 @@ static void avr_evtd_main(void);
 static char check_disk(void) __attribute__ ((always_inline));
 static void set_avr_timer(char type);
 static void parse_avr(char *buff);
-static void GetTime(long timeNow, TIMER * pTimerLocate, long *time,
-		    long defaultTime);
+static void GetTime(long timeNow, TIMER * pTimerLocate, long *time, long defaultTime);
 static int FindNextToday(long timeNow, TIMER * pTimer, long *time);
-static int FindNextDay(long timeNow, TIMER * pTimer, long *time,
-		       long *offset);
+static int FindNextDay(long timeNow, TIMER * pTimer, long *time, long *offset);
 static void destroyObject(TIMER * pTimer);
-static void writeUART(char output);
+static void writeUART(char);
 static void errorReport(int errorNumber);
 static void execute_command1(char cmd);
 static void execute_command(char cmd, int cmd2);
 
-static void writeUART(char output)
+static void usage(void)
 {
-	/* Handle ALL UART messages from a central point, reduce code
-	 * overhead */
-	char strOutput[4];
-	strOutput[0] = strOutput[1] = strOutput[2] = strOutput[3] = output;
-	write(FileDescriptor, strOutput, 4);
+	printf("Usage: avr-evtd [OPTION...]\n"
+#ifndef MIPS
+	       "  -d DEVICE     listen for events on DEVICE\n"
+	       "  -i            display memory location for device used with -d\n"
+#endif
+	       "  -c            run in the foreground, not as a daemon\n"
+	       "  -v            display program version\n"
+	       "  -h            display this usage notice\n");
+	exit(0);
 }
 
+/* Handle ALL UART messages from a central point, reduce code overhead */
+static void writeUART(char output_)
+{
+	char output[4];
+	output[0] = output[1] = output[2] = output[3] = output_;
+	write(FileDescriptor, output, 4);
+}
+
+/* Establish connection to serial port and initialise it */
 static int open_serial(char *device)
 {
-	/* Establish connection to comport and initialise the port as
-	 * required */
 	struct termios newtio;
 
 #ifndef MIPS
@@ -175,6 +184,7 @@ static int open_serial(char *device)
 		perror(device);
 		return -1;
 	}
+
 #ifndef MIPS
 	/* Requested device memory address? */
 	if (2 == debug) {
@@ -254,24 +264,27 @@ static void termination_handler(int signum)
 	}
 }
 
+
+/* Execute event script handler with the appropriate commands */
 static void execute_command(char cmd, int cmd2)
 {
 	char strEventScript[45];
 
-	/* Send device info to the event script handler */
 	sprintf(strEventScript, "/etc/avr-evtd/EventScript %c %s %d &",
 		cmd, avr_device, cmd2);
 	system(strEventScript);
 }
+
 
 static void execute_command1(char cmd)
 {
 	execute_command(cmd, 0);
 }
 
+
+/* Our main entry, decode requests and monitor activity */
 static void avr_evtd_main(void)
 {
-	/* Our main entry, decode requests and monitor activity */
 	char buf[17];
 	char cmd;
 	char PushedPowerFlag = 0;
@@ -457,8 +470,7 @@ static void avr_evtd_main(void)
 #ifdef DEBUG
 			default:
 				if (buf[0] != 0)
-					syslog(LOG_INFO,
-					       "unknown message %X[%d]",
+					syslog(LOG_INFO, "unknown message %X[%d]",
 					       buf[0], iResult);
 				break;
 #endif
@@ -507,47 +519,34 @@ static void avr_evtd_main(void)
 			}
 #endif
 			/* Skip this processing during power/reset scan */
-			if (!PushedResetFlag && !PushedPowerFlag
-			    && FirstTimeFlag < 2) {
+			if (!PushedResetFlag && !PushedPowerFlag && FirstTimeFlag < 2) {
 				/* shutdown timer event? */
 				if (1 == TimerFlag) {
 					/* Decrement our powerdown timer */
 					if (ShutdownTimer > 0) {
-						lTimerDiff =
-						    (tt_TimeNow -
-						     tt_LastShutdownPing);
+						lTimerDiff = (tt_TimeNow - tt_LastShutdownPing);
 
-						/* If time difference is
-						 * more than a minute,
-						 * force a
-						 * re-calculation of
-						 * shutdown time */
-						if (refreshRate + 60 >
-						    abs(lTimerDiff)) {
-							ShutdownTimer -=
-							    lTimerDiff;
+						/* If time difference is more than a minute,
+						 * force a re-calculation of shutdown time */
+						if (refreshRate + 60 > abs(lTimerDiff)) {
+							ShutdownTimer -= lTimerDiff;
 
 							/* Within five
 							 * minutes of
 							 * shutdown? */
-							if (ShutdownTimer <
-							    FIVE_MINUTES) {
+							if (ShutdownTimer < FIVE_MINUTES) {
 								if (FirstTimeFlag) {
-									FirstTimeFlag
-									    =
-									    0;
+									FirstTimeFlag = 0;
 
 									/* Inform the EventScript */
-									execute_command
-									    (FIVE_SHUTDOWN,
+									execute_command(FIVE_SHUTDOWN,
 									     ShutdownTimer);
 
 									/* Re-validate out time
 									   wake-up; do not perform
 									   if in extra time */
 									if (!extraTime)
-										set_avr_timer
-										    (1);
+										set_avr_timer(1);
 								}
 							}
 						}
@@ -562,10 +561,8 @@ static void avr_evtd_main(void)
 					} else {
 						/* Prevent re-entry and
 						 * execute command */
-						PushedPowerFlag =
-						    PressedResetFlag = 2;
-						execute_command1
-						    (TIMED_SHUTDOWN);
+						PushedPowerFlag =  PressedResetFlag = 2;
+						execute_command1(TIMED_SHUTDOWN);
 					}
 				}
 
@@ -573,8 +570,7 @@ static void avr_evtd_main(void)
 				tt_LastShutdownPing = time(NULL);
 
 				/* Split loading, handle disk checks
-				 * over a number of cycles, reduce CPU
-				 * hog */
+				 * over a number of cycles, reduce CPU hog */
 				switch (checkState) {
 					/* Kick state machine */
 				case 0:
@@ -600,8 +596,7 @@ static void avr_evtd_main(void)
 					if ((currentStatus = check_disk())) {
 						/* Execute some user code on disk full */
 						if (FirstWarning) {
-							FirstWarning =
-							    pesterMessage;
+							FirstWarning = pesterMessage;
 							execute_command
 							    (DISK_FULL,
 							     diskUsed);
@@ -647,8 +642,7 @@ static void avr_evtd_main(void)
 			case 2:
 			case 3:
 			case 4:
-				if ((tt_fault_time + fanFaultSeize) <
-				    tt_TimeNow) {
+				if ((tt_fault_time + fanFaultSeize) < tt_TimeNow) {
 					/* Run some user script on no
 					 * fan restart message after
 					 * FAN_FAULT_SEIZE time */
@@ -659,10 +653,8 @@ static void avr_evtd_main(void)
 				break;
 				/* Fan sped up message received */
 			case 6:
-				/* Attempt to slow fan down again after
-				 * 5 minutes */
-				if ((tt_fault_time + FIVE_MINUTES) <
-				    tt_TimeNow) {
+				/* Attempt to slow fan down again after 5 minutes */
+				if ((tt_fault_time + FIVE_MINUTES) < tt_TimeNow) {
 					writeUART(0x5C);
 					fan_fault = 1;
 				}
@@ -686,6 +678,7 @@ static void avr_evtd_main(void)
 		}
 	}
 }
+
 
 int main(int argc, char *argv[])
 {
@@ -716,13 +709,17 @@ int main(int argc, char *argv[])
 			break;
 		case 'v':
 			--argc;
-			printf("%s", strVersion);
+			printf("%s", version);
 			exit(0);
-			break;
 		case 'e':
 			--argc;
 			em_mode = 1;
 			break;
+		case 'h':
+			usage();
+			exit(0);
+		default:
+			usage();
 		}
 		argc--;
 		argv++;
@@ -765,7 +762,7 @@ int main(int argc, char *argv[])
 	openlog("avr-daemon", LOG_PID | LOG_NOWAIT | LOG_CONS,
 		LOG_WARNING);
 
-	syslog(LOG_INFO, "%s", strVersion);
+	syslog(LOG_INFO, "%s", version);
 
 	/* Our main */
 	avr_evtd_main();
@@ -773,10 +770,12 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+
 static void errorReport(int errorNumber)
 {
 	execute_command(ERRORED, errorNumber);
 }
+
 
 static char check_disk(void)
 {
@@ -939,10 +938,10 @@ static void parse_timer(char *buff)
 
 #endif
 
+
+/* Parse configuration file /etc/default/avr-evtd */
 static void parse_avr(char *buff)
 {
-	/* Parse the /etc/default/avr-evtd file
-	   Valid options are listed in the command definition below */
 	const char *command[] = {
 		"TIMER",
 		"SHUTDOWN",
@@ -1234,6 +1233,7 @@ static void parse_avr(char *buff)
 	}
 }
 
+
 static void destroyObject(TIMER * pTimer)
 {
 	/* Destroy this object by free-ing up the memory we grabbed
@@ -1257,6 +1257,7 @@ static void destroyObject(TIMER * pTimer)
 	}
 }
 
+
 static int FindNextToday(long timeNow, TIMER * pTimer, long *time)
 {
 	/* Scan macro objects for a valid event from 'time' today */
@@ -1276,8 +1277,8 @@ static int FindNextToday(long timeNow, TIMER * pTimer, long *time)
 	return iLocated;
 }
 
-static int FindNextDay(long timeNow, TIMER * pTimer, long *time,
-		       long *offset)
+
+static int FindNextDay(long timeNow, TIMER * pTimer, long *time, long *offset)
 {
 	/* Locate the next valid event */
 	int iLocated = 0;
@@ -1302,8 +1303,8 @@ static int FindNextDay(long timeNow, TIMER * pTimer, long *time,
 	return iLocated;
 }
 
-static void GetTime(long timeNow, TIMER * pTimerLocate, long *time,
-		    long defaultTime)
+
+static void GetTime(long timeNow, TIMER * pTimerLocate, long *time, long defaultTime)
 {
 	/* Get next timed macro event */
 	long lOffset = 0;
@@ -1552,6 +1553,7 @@ static void set_avr_timer(char type)
 
 	writeUART(keepAlive);
 }
+
 
 static int check_timer(char type)
 {
