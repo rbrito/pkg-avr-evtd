@@ -9,7 +9,7 @@ Homepage: http://sourceforge.net/projects/ppc-evtd
 DM-Upload-Allowed: yes
 
 Package: avr-evtd
-Architecture: any
+Architecture: linux-any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: AVR watchdog daemon for Linkstation/Kuroboxes
  avr-evtd is a simple and small user space interface to the Linkstation
