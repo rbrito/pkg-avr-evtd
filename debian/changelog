@@ -1,3 +1,10 @@
+avr-evtd (1.7.7-1) unstable; urgency=low
+
+  * Upstream version 1.7.7:
+    + fix syntax error in the init script
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Fri, 21 May 2010 00:26:05 -0300
+
 avr-evtd (1.7.6-1) unstable; urgency=low
 
   * New upstream release:
