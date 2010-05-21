@@ -108,7 +108,7 @@ int checkState = 1;		/* Will force an update within 15
 				 * seconds of starting up to resolve
 				 * those pushed out refresh times */
 char em_mode = 0;
-const char version[] = "Linkstation/Kuro AVR daemon $Rev: 145 $\n";
+const char version[] = "Linkstation/Kuro AVR daemon $Rev: 147 $\n";
 char rootPartition[10] = "";	/* Default, no defaults for both root
 				 * and working partitions */
 char workingPartition[10] = "";
