@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
+-include /usr/share/dpkg/buildtools.mk
 TARGETDIR=$(CURDIR)/debian/avr-evtd
 
 CFLAGS = -Wall -Wextra -g
