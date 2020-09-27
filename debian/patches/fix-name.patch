@@ -1,0 +1,18 @@
+diff --git a/README1st.txt b/README1st.txt
+index 38d5631..fba41a2 100644
+--- a/README1st.txt
++++ b/README1st.txt
+@@ -1,6 +1,6 @@
+ AVR EVENT DAEMON (PPC-EVTD)
+ Copyright © 2006	Bob Perry <lb-source@users.sf.net>
+-Copyright © 2008-2010	Rogério Brito <rbrito@users.sf.net>
++Copyright © 2008-2010	Rogério Theodoro de Brito <rbrito@users.sf.net>
+ 
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+@@ -155,4 +155,4 @@ This is Free Software for Linkstation/kuro fans and lovers!
+ 
+ Please just mention my name if modified or linked to.
+ Bob Perry (UK) JUNE 2006.
+-Rogério Brito Aug 2009.
++Rogério Theodoro de Brito Aug 2009.
