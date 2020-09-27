@@ -1,5 +1,42 @@
+From: =?utf-8?q?Rog=C3=A9rio_Theodoro_de_Brito?= <rbrito@ime.usp.br>
+Date: Sun, 27 Sep 2020 18:57:40 -0300
+Subject: Fix missing/incorrect information from upstream.
+
+This patch fixes the FSF address in many places and also spells out my name
+in full.  I should "forward it myself" (as I am still marked as an upstream
+maintainer).
+---
+ Install/avr-evtd.8 | 10 +++++-----
+ README1st.txt      | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/Install/avr-evtd.8 b/Install/avr-evtd.8
+index 285da24..abfe016 100644
+--- a/Install/avr-evtd.8
++++ b/Install/avr-evtd.8
+@@ -484,8 +484,8 @@ Error in stock configuration file
+ 
+ .SH AUTHORS
+ 
+-Bob Perry <lb-source@users.sourceforge.net> (2006), with some
+-modifications by Rog\['e]rio Brito <rbrito@users.sourceforge.net> (2008,
++Bob Perry <lb-source@users.sourceforge.net> (2006), with some modifications
++by Rog\['e]rio Theodoro de Brito <rbrito@users.sourceforge.net> (2008,
+ 2009).
+ 
+ .SH COPYRIGHT
+@@ -500,6 +500,6 @@ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ Public License for more details.
+ .LP
+-You should have received a copy of the GNU General Public License along
+-with this program; if not, write to the Free Software Foundation, Inc.,
+-675 Mass Ave, Cambridge, MA 02139, USA.
++You should have received a copy of the GNU General Public License along with
++this program; if not, write to the Free Software Foundation, Inc., 51
++Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 diff --git a/README1st.txt b/README1st.txt
-index 38d5631..fba41a2 100644
+index 38d5631..d3b0e31 100644
 --- a/README1st.txt
 +++ b/README1st.txt
 @@ -1,6 +1,6 @@
@@ -10,6 +47,19 @@ index 38d5631..fba41a2 100644
  
  This program is free software; you can redistribute it and/or modify it
  under the terms of the GNU General Public License as published by the
+@@ -12,9 +12,9 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+-You should have received a copy of the GNU General Public License
+-along with this program; if not, write to the Free Software
+-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
++You should have received a copy of the GNU General Public License along with
++this program; if not, write to the Free Software Foundation, Inc., 51
++Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ 
+ --------------------------------------------------------------------------------
+ 
 @@ -155,4 +155,4 @@ This is Free Software for Linkstation/kuro fans and lovers!
  
  Please just mention my name if modified or linked to.
