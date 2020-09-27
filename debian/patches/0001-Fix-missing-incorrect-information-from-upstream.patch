@@ -7,8 +7,10 @@ in full.  I should "forward it myself" (as I am still marked as an upstream
 maintainer).
 ---
  Install/avr-evtd.8 | 10 +++++-----
+ Makefile           |  2 +-
  README1st.txt      | 10 +++++-----
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ avr-evtd.c         |  2 +-
+ 4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Install/avr-evtd.8 b/Install/avr-evtd.8
 index 285da24..abfe016 100644
@@ -35,6 +37,19 @@ index 285da24..abfe016 100644
 +You should have received a copy of the GNU General Public License along with
 +this program; if not, write to the Free Software Foundation, Inc., 51
 +Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+diff --git a/Makefile b/Makefile
+index 9a5c979..b6d7477 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ # Makefile for the Linkstation AVR Event daemon running under Linux
+ #
+ # Copyright 2008 Bob Perry
+-# Copyright 2008, 2009 Rogério Brito <rbrito@users.sf.net>
++# Copyright 2008, 2009 Rogério Theodoro de Brito <rbrito@users.sf.net>
+ TITLE=Linkstation AVR Event daemon
+ 
+ #
 diff --git a/README1st.txt b/README1st.txt
 index 38d5631..d3b0e31 100644
 --- a/README1st.txt
@@ -66,3 +81,16 @@ index 38d5631..d3b0e31 100644
  Bob Perry (UK) JUNE 2006.
 -Rogério Brito Aug 2009.
 +Rogério Theodoro de Brito Aug 2009.
+diff --git a/avr-evtd.c b/avr-evtd.c
+index 02c060a..e8872cd 100644
+--- a/avr-evtd.c
++++ b/avr-evtd.c
+@@ -2,7 +2,7 @@
+  * Linkstation AVR daemon
+  *
+  * Copyright © 2006 Bob Perry <lb-source@users.sf.net>
+- * Copyright © 2008-2010 Rogério Brito <rbrito@users.sf.net>
++ * Copyright © 2008-2010 Rogério Theodoro de Brito <rbrito@users.sf.net>
+  *
+  * This program is free software; you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
