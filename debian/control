@@ -5,6 +5,7 @@ Maintainer: Rogério Theodoro de Brito <rbrito@ime.usp.br>
 Build-Depends:
  debhelper (>= 5)
 Standards-Version: 4.0.0
+Rules-Requires-Root: no
 Vcs-Browser: https://github.com/rbrito/pkg-avr-evtd
 Vcs-Git: https://github.com/rbrito/pkg-avr-evtd.git
 Homepage: https://github.com/rbrito/avr-evtd
