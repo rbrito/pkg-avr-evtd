@@ -1,0 +1,21 @@
+From: =?utf-8?q?Rog=C3=A9rio_Brito?= <rbrito@ime.usp.br>
+Date: Sun, 27 Sep 2020 19:37:03 -0300
+Subject: Fix typos.
+
+---
+ Install/avr-evtd.8 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Install/avr-evtd.8 b/Install/avr-evtd.8
+index abfe016..0c96715 100644
+--- a/Install/avr-evtd.8
++++ b/Install/avr-evtd.8
+@@ -293,7 +293,7 @@ script is setup to power down.  This can be changed to an e-mail event
+ prior to shutdown if required.
+ 
+ Otherwise, if a user has decided to remove the fan then this can be set
+-to OFF to prevent shutdown from occuring.  It must be stressed that
++to OFF to prevent shutdown from occurring.  It must be stressed that
+ alternative cooling must be sourced if this option is selected.
+ 
+ .SH BUTTON OPERATION
