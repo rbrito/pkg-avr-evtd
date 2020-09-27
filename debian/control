@@ -5,7 +5,7 @@ Priority: optional
 Maintainer: Rogério Theodoro de Brito <rbrito@ime.usp.br>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.8.4
-Homepage: http://sourceforge.net/projects/ppc-evtd
+Homepage: https://github.com/rbrito/avr-evtd
 DM-Upload-Allowed: yes
 
 Package: avr-evtd
