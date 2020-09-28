@@ -1,11 +1,11 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
--include /usr/share/dpkg/buildflags.mk
--include /usr/share/dpkg/buildtools.mk
+include /usr/share/dpkg/buildflags.mk
+include /usr/share/dpkg/buildtools.mk
 TARGETDIR=$(CURDIR)/debian/avr-evtd
 
-CFLAGS = -Wall -Wextra -g
+# CFLAGS += -Wall -Wextra -g
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
      CFLAGS += -O0
