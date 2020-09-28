@@ -1,6 +1,6 @@
-avr-evtd (1.7.7-3~1.gbp6a89f5) UNRELEASED; urgency=medium
+avr-evtd (1.7.7-3~2.gbp8b97d6) UNRELEASED; urgency=medium
 
-  ** SNAPSHOT build @6a89f5b4fb156797f154ec801b61c09e1360b6bc **
+  ** SNAPSHOT build @8b97d6fc0980273d5a79244cbe9a14a45b6d9d17 **
 
   * Use my full name in as many places as I can find.
   * Update to use new upstream URL.
@@ -9,6 +9,9 @@ avr-evtd (1.7.7-3~1.gbp6a89f5) UNRELEASED; urgency=medium
   * debian/patches:
     + Add patches to fix incorrect upstream info.
     + Add patch to fix FTBFS.
+    + Fix missing argument.
+    + Add patch to avoid clobbering CFLAGs by upstream's makefile.
+    + Fix warnings to silence new GCCs.
   * debian/control:
     + Add VCS fields for packaging.
     + Add missing depends on lsb-base.
@@ -23,10 +26,11 @@ avr-evtd (1.7.7-3~1.gbp6a89f5) UNRELEASED; urgency=medium
     + Fix FTCBFS: Let dpkg's buildtools.mk supply $(CC).
       Thanks to Helmut Grohne <helmut@subdivi.de> (Closes: #928884)
     + Move arguments of dh_clean to debian/clean.
+    + Drastically simplify to adapt and convert to dh sequencer.
   * debian/watch:
-    + Point to github (and use version 4).
+    + Point to github (and use version 4 of watch files).
 
- -- Rogério Brito <rbrito@ime.usp.br>  Sun, 27 Sep 2020 23:19:40 -0300
+ -- Rogério Brito <rbrito@ime.usp.br>  Mon, 28 Sep 2020 16:55:11 -0300
 
 avr-evtd (1.7.7-2) unstable; urgency=low
 
