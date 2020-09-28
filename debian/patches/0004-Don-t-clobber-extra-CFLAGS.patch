@@ -1,0 +1,23 @@
+From: =?utf-8?q?Rog=C3=A9rio_Brito?= <rbrito@ime.usp.br>
+Date: Mon, 28 Sep 2020 00:25:29 -0300
+Subject: Don't clobber extra CFLAGS.
+
+Upstream's Makefile clobbers options passed to it and we lose, for instance,
+hardening options, among others.
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index b6d7477..176014f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,7 +12,7 @@ TITLE=Linkstation AVR Event daemon
+ # remove the redundant EM-Mode NGNGNG poke into flash
+ #
+ CC = cc
+-CFLAGS = -Wall -Wextra -Os
++CFLAGS += -Wall -Wextra -Os
+ CFLAGS += -DUBOOT
+ 
+ ######################################################################
