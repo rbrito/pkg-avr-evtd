@@ -1,6 +1,4 @@
-avr-evtd (1.7.7-3~2.gbp8b97d6) UNRELEASED; urgency=medium
-
-  ** SNAPSHOT build @8b97d6fc0980273d5a79244cbe9a14a45b6d9d17 **
+avr-evtd (1.7.7-3) unstable; urgency=medium
 
   * Use my full name in as many places as I can find.
   * Update to use new upstream URL.
@@ -30,7 +28,7 @@ avr-evtd (1.7.7-3~2.gbp8b97d6) UNRELEASED; urgency=medium
   * debian/watch:
     + Point to github (and use version 4 of watch files).
 
- -- Rogério Brito <rbrito@ime.usp.br>  Mon, 28 Sep 2020 16:55:11 -0300
+ -- Rogério Brito <rbrito@ime.usp.br>  Mon, 28 Sep 2020 17:00:43 -0300
 
 avr-evtd (1.7.7-2) unstable; urgency=low
 
