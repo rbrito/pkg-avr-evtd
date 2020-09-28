@@ -1,3 +1,11 @@
+avr-evtd (1.7.7-4) unstable; urgency=medium
+
+  * Include avr-evtd_1.7.7.orig.tar.gz from the archives.
+    (Something got wrong with the pristine-tar stuff and the previous
+    upload was rejected).
+
+ -- Rogério Brito <rbrito@ime.usp.br>  Mon, 28 Sep 2020 19:23:31 -0300
+
 avr-evtd (1.7.7-3) unstable; urgency=medium
 
   * Use my full name in as many places as I can find.
