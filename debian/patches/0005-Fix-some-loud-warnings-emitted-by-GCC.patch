@@ -1,0 +1,58 @@
+From: =?utf-8?q?Rog=C3=A9rio_Brito?= <rbrito@ime.usp.br>
+Date: Mon, 28 Sep 2020 16:53:33 -0300
+Subject: Fix some loud warnings emitted by GCC.
+
+---
+ avr-evtd.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/avr-evtd.c b/avr-evtd.c
+index a560946..470d2b1 100644
+--- a/avr-evtd.c
++++ b/avr-evtd.c
+@@ -528,7 +528,7 @@ static void avr_evtd_main(void)
+ 
+ 						/* If time difference is more than a minute,
+ 						 * force a re-calculation of shutdown time */
+-						if (refreshRate + 60 > abs(lTimerDiff)) {
++						if (refreshRate + 60 > labs(lTimerDiff)) {
+ 							ShutdownTimer -= lTimerDiff;
+ 
+ 							/* Within five
+@@ -1190,7 +1190,8 @@ static void parse_avr(char *buff)
+ 		case 15:
+ 			if (strcasecmp(pos, "ON") == 0)
+ 				pesterMessage = 1;
+-
++			/* FIXME: Should this be a fallthrough to the next case or not? */
++			break;
+ 			/* Fan failure stop time before event trigger */
+ 		case 16:
+ 			if (strcasecmp(pos, "OFF") == 0)
+@@ -1206,8 +1207,6 @@ static void parse_avr(char *buff)
+ 			}
+ 			break;
+ 
+-			break;
+-
+ 			/* Specified partiton names */
+ 		case 17:
+ 		case 18:
+@@ -1439,7 +1438,6 @@ static void set_avr_timer(char type)
+ 	struct tm *decode_time;
+ 	char message[80];
+ 	char strAVR;
+-	char twelve;
+ 	int i;
+ 	long mask = 0x800;
+ 	long offTime, onTime;
+@@ -1462,9 +1460,7 @@ static void set_avr_timer(char type)
+ 			GetTime(offTime, onTimer, &onTime, OnTime);
+ 
+ 		/* Protect for tomorrows setting */
+-		twelve = 0;
+ 		if (offTime < current_time) {
+-			twelve = 1;
+ 			ShutdownTimer =
+ 			    ((TWELVEHR +
+ 			      (offTime - (current_time - TWELVEHR))) * 60);
