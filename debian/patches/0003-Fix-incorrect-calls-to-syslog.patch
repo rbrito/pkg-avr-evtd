@@ -1,0 +1,32 @@
+From: =?utf-8?q?Rog=C3=A9rio_Theodoro_de_Brito?= <rbrito@ime.usp.br>
+Date: Sun, 27 Sep 2020 18:57:40 -0300
+Subject: Fix incorrect calls to syslog.
+
+I should "forward it myself" (as I am still marked as an upstream
+maintainer).
+---
+ avr-evtd.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/avr-evtd.c b/avr-evtd.c
+index e8872cd..de77959 100644
+--- a/avr-evtd.c
++++ b/avr-evtd.c
+@@ -1517,13 +1517,10 @@ static void set_avr_timer(char type)
+ 		ttime = ltime + wait_time;
+ 		decode_time = localtime(&ttime);
+ 
+-		sprintf(message,
+-			"%s-%02d/%02d %02d:%02d (Following timer %s)",
+-			message, decode_time->tm_mon + 1,
+-			decode_time->tm_mday, decode_time->tm_hour,
+-			decode_time->tm_min, strMessage[(int) type]);
+-
+-		syslog(LOG_INFO, message);
++		syslog(LOG_INFO, "%s-%02d/%02d %02d:%02d (Following timer %s)",
++		       decode_time->tm_mon + 1,
++		       decode_time->tm_mday, decode_time->tm_hour,
++		       decode_time->tm_min, strMessage[(int) type]);
+ 
+ 		/* Now tell the AVR we are updating the 'on' time */
+ 		writeUART(0x3E);

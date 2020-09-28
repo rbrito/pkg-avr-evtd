@@ -1,2 +1,3 @@
 0001-Fix-missing-incorrect-information-from-upstream.patch
 0002-Fix-typos.patch
+0003-Fix-incorrect-calls-to-syslog.patch
