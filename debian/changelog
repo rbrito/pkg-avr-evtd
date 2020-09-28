@@ -1,26 +1,32 @@
-avr-evtd (1.7.7-3~0.gbp98fb31) UNRELEASED; urgency=medium
+avr-evtd (1.7.7-3~1.gbp6a89f5) UNRELEASED; urgency=medium
 
-  ** SNAPSHOT build @98fb315e5be10254afe478e01e6aa592de1e441b **
+  ** SNAPSHOT build @6a89f5b4fb156797f154ec801b61c09e1360b6bc **
 
-  * debian/{control,copyright}: Use my full name.
-  * debian/patches: Add patches to fix incorrect upstream info.
-  * debian/patches/fix-name.patch: Fix more files with incorrect information.
-  * debian/patches: Renegerate with `gbp pq`.
-  * debian/{control,copyright}: Update new upstream URL.
-  * debian/control: Add VCS fields for packaging.
-  * debian/control: Mark compliancy with policy version 3.9.0.
-  * debian/control: Fix duplicate Vcs-Browser field.
-  * debian/control: Add missing depends on lsb-base.
-  * debian/patches: Add patch to fix upstream typos.
-  * debian/patches/0001-Fix-...: Update.
-  * debian/rules: Fix FTCBFS: Let dpkg's buildtools.mk supply $(CC).
-    Thanks to Helmut Grohne <helmut@subdivi.de> (Closes: #928884)
-  * debian/control: Declare compliacy with policy 3.9.3.
-  * debian/control: Normalize with wrap-and-sort.
-  * debian/control: Remove obsolete field DMUA: yes.
-  * debian/copyright: Rewrite in machine-readable format.
+  * Use my full name in as many places as I can find.
+  * Update to use new upstream URL.
+  * debian/copyright:
+    + Rewrite in machine-readable format.
+  * debian/patches:
+    + Add patches to fix incorrect upstream info.
+    + Add patch to fix FTBFS.
+  * debian/control:
+    + Add VCS fields for packaging.
+    + Add missing depends on lsb-base.
+    + Declare compliacy with policy 3.9.3.
+    + Normalize with wrap-and-sort.
+    + Remove obsolete field DMUA: yes.
+    + Declare compliancy with policy 4.1.5 (still some work to catch up).
+    + Move to 'debhelper-compat (= 13)' (Closes: #965423)
+    + Declare that root is not required.
+  * debian/rules:
+    + Substitute dh_clean -k by dh_prep.
+    + Fix FTCBFS: Let dpkg's buildtools.mk supply $(CC).
+      Thanks to Helmut Grohne <helmut@subdivi.de> (Closes: #928884)
+    + Move arguments of dh_clean to debian/clean.
+  * debian/watch:
+    + Point to github (and use version 4).
 
- -- Rogério Brito <rbrito@ime.usp.br>  Sun, 27 Sep 2020 20:27:50 -0300
+ -- Rogério Brito <rbrito@ime.usp.br>  Sun, 27 Sep 2020 23:19:40 -0300
 
 avr-evtd (1.7.7-2) unstable; urgency=low
 
