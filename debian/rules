@@ -1,69 +1,23 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-include /usr/share/dpkg/buildflags.mk
-include /usr/share/dpkg/buildtools.mk
 TARGETDIR=$(CURDIR)/debian/avr-evtd
 
-# CFLAGS += -Wall -Wextra -g
 
-ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-     CFLAGS += -O0
-else
-     CFLAGS += -Os
-endif
+%:
+	dh $@
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	touch $@
+override_dh_auto_clean:
+	# FIXME: upstream's install or clean is broken
 
-build: build-stamp
+override_dh_auto_install:
 	cp -l Install/avr-evtd.init debian/avr-evtd.init
+	cp -l Changelog.old Changelog
 
-build-stamp: configure-stamp
-	dh_testdir
-	$(CC) $(CFLAGS) -o avr-evtd avr-evtd.c
-	touch $@
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-	dh_clean
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-
+	# FIXME: Upstream needs to be notified that this should be the ideal:
 	#$(MAKE) DESTDIR=$(CURDIR)/debian/avr-evtd install
+
 	install avr-evtd			$(TARGETDIR)/usr/sbin
 	install -m 755	Install/EventScript	$(TARGETDIR)/etc/avr-evtd/
 	install -m 644	Install/emergency-eth0	$(TARGETDIR)/etc/avr-evtd/
 	install -m 644	Install/recovery.tar	$(TARGETDIR)/etc/avr-evtd/
 	install -m 644	Install/avr-evtd.config	$(TARGETDIR)/etc/default/avr-evtd
-
-binary-indep: build install
-
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs Changelog.old
-	dh_installdocs
-	dh_installexamples
-	dh_installinit -- start 12 2 3 4 5 . stop 95 0 1 6 .
-	dh_installman  Install/avr-evtd.8
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure real-clean
