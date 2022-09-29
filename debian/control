@@ -1,7 +1,7 @@
 Source: avr-evtd
 Section: misc
 Priority: optional
-Maintainer: Rogério Theodoro de Brito <rbrito@ime.usp.br>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 Build-Depends:
  debhelper-compat (= 13),
 Standards-Version: 4.1.5
